@@ -1,6 +1,6 @@
 {
   "name": "CloudPhone OS",
-  "description": "Virtual Android Cloud Phone with 64GB Cloud ROM, 4GB RAM, Linux Termux terminal, Play Store, and YouTube.",
+  "description": "Virtual Android Cloud Phone with 64GB Cloud ROM, 4GB RAM, CloudTerm VM Linux terminal, Play Store, and YouTube.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

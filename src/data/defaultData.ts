@@ -3,16 +3,16 @@ import { CloudAppInfo, CloudPackage, YouTubeVideo, VirtualFile } from '../types'
 export const INITIAL_APPS: CloudAppInfo[] = [
   {
     id: 'terminal',
-    packageName: 'com.termux.cloud',
-    name: 'Termux Linux',
-    summary: 'Full Linux bash terminal, pkg manager, ssh & python',
+    packageName: 'com.cloudterm.vm',
+    name: 'CloudTerm VM',
+    summary: 'Ultra-fast Linux MicroVM terminal • 4GB RAM • 64GB ROM • Bash, SSH, Docker & Pkg',
     iconName: 'Terminal',
     color: '#00E676',
     appSizeMb: 48,
     ramUsageMb: 280,
     category: 'Development',
-    rating: 4.9,
-    downloads: '50M+',
+    rating: 5.0,
+    downloads: '100M+',
     isInstalled: true,
     isSystemApp: true,
   },
@@ -151,6 +151,8 @@ export const INITIAL_PACKAGES: CloudPackage[] = [
   { id: 'vim', name: 'Vim', version: '9.1.0', sizeMb: 18.2, description: 'Vi IMproved advanced text editor', isInstalled: false, category: 'Editor' },
   { id: 'nano', name: 'GNU nano', version: '7.2', sizeMb: 2.9, description: 'Simple, friendly command line text editor', isInstalled: false, category: 'Editor' },
   { id: 'tree', name: 'Tree', version: '2.1.1', sizeMb: 0.5, description: 'Recursive directory listing command', isInstalled: false, category: 'Utilities' },
+  { id: 'docker', name: 'Docker CLI', version: '26.0.1', sizeMb: 42.0, description: 'Container runtime engine for CloudTerm MicroVM', isInstalled: true, category: 'Development' },
+  { id: 'speedtest-cli', name: 'Speedtest CLI', version: '2.1.3', sizeMb: 1.8, description: 'Test Google Cloud 10Gbps datacenter throughput', isInstalled: true, category: 'Network' },
 ];
 
 export const INITIAL_FILES: VirtualFile[] = [
@@ -159,22 +161,37 @@ export const INITIAL_FILES: VirtualFile[] = [
     path: '/home/cloud/welcome.sh',
     content: `#!/bin/bash
 echo "=================================================="
-echo "🚀 WELCOME TO CLOUDDROID TERMINAL & LINUX OS 🚀"
+echo "⚡ WELCOME TO CLOUDTERM VM (Google Cloud KVM) ⚡"
 echo "=================================================="
-echo "Specs: 4.0 GB RAM | 64.0 GB Cloud ROM (Google Cloud)"
-echo "Status: Zero device storage used! 100% Cloud-Powered."
+echo "Hardware: 4.0 GB LPDDR4x RAM • 64.0 GB Cloud NVMe"
+echo "Datacenter: Google Cloud (10 Gbps Pipe • 0.2ms latency)"
+echo "Storage Used on Phone: 0.0 MB (Pure Remote Cloud VM)"
 echo ""
-echo "Quick commands:"
-echo "  neofetch       - Display cloud phone specs & system info"
-echo "  pkg install    - Install packages (python, node, git, etc.)"
-echo "  curl <url>     - Query real internet APIs / websites"
-echo "  ssh <host>     - Connect to remote servers"
-echo "  free -h / df -h- Check RAM and 64GB Cloud Storage"
-echo "  ./sys_bench.sh - Run 4GB RAM cloud benchmark"
+echo "Quick Commands:"
+echo "  speedtest       - Test 10 Gbps Google Cloud throughput"
+echo "  neofetch        - Display CloudTerm VM specs & logo"
+echo "  docker ps       - View running cloud containers"
+echo "  pkg install     - Install packages (cmatrix, htop, nodejs)"
+echo "  free -h / df -h - Inspect 4GB RAM & 64GB ROM"
+echo "  ./speedtest.sh  - Run datacenter network benchmark"
 echo "=================================================="`,
     isDirectory: false,
-    sizeBytes: 680,
-    modified: 'Sep 23 19:40',
+    sizeBytes: 740,
+    modified: 'Sep 24 03:00',
+    isExecutable: true,
+  },
+  {
+    name: 'speedtest.sh',
+    path: '/home/cloud/speedtest.sh',
+    content: `#!/bin/bash
+echo "Connecting to Google Cloud Datacenter speed server..."
+echo "Ping: 0.8ms | Jitter: 0.02ms"
+echo "Download: 9,420 Mbps (10 Gbps Cloud Fiber)"
+echo "Upload:   8,890 Mbps"
+echo "Physical Phone Storage: 0.0 MB | Zero cellular congestion"`,
+    isDirectory: false,
+    sizeBytes: 260,
+    modified: 'Sep 24 03:05',
     isExecutable: true,
   },
   {

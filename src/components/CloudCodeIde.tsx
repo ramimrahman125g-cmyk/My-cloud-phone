@@ -23,7 +23,7 @@ export const CloudCodeIde: React.FC<CloudCodeIdeProps> = ({ onRunInTerminal }) =
           className="flex items-center space-x-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs rounded-xl shadow-md transition-all active:scale-95"
         >
           <Play className="w-3.5 h-3.5 fill-current" />
-          <span>Run in Termux</span>
+          <span>Run in CloudTerm VM</span>
         </button>
       </div>
 

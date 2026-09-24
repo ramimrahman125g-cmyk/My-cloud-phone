@@ -131,26 +131,31 @@ export const CloudHomeScreen: React.FC<CloudHomeScreenProps> = ({
           </div>
         </div>
 
-        {/* Quick Launch Terminal Banner */}
+        {/* Quick Launch CloudTerm VM Banner */}
         <div
           onClick={() => onOpenApp('terminal')}
-          className="bg-gradient-to-r from-emerald-950/70 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-2xl p-3 flex items-center justify-between cursor-pointer hover:border-emerald-400/50 transition-all shadow-md group"
+          className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between cursor-pointer hover:border-emerald-400/70 transition-all shadow-lg group hover:shadow-emerald-950/40"
         >
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-black border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-mono font-bold text-base shadow-inner">
+            <div className="w-10 h-10 rounded-xl bg-black border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-mono font-bold text-base shadow-inner relative">
               &gt;_
+              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors">
-                  Termux Linux Terminal
+                <span className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center space-x-1">
+                  <span>CloudTerm VM</span>
+                  <Zap className="w-3 h-3 text-amber-400" />
                 </span>
-                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-mono">
-                  Online
+                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-mono font-bold">
+                  TURBO KVM
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 font-mono">
-                cloud@gcp:~$ bash, pkg, python3, ssh
+                cloud@gcp:~$ speedtest, bash, docker, python3
               </p>
             </div>
           </div>

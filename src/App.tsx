@@ -37,10 +37,11 @@ export function App() {
   // Terminal Lines
   const [terminalLines, setTerminalLines] = useState<TerminalLine[]>([
     { text: '==================================================', type: 'system' },
-    { text: '🐧 Termux Linux Environment (Google Cloud MicroVM)', type: 'success' },
+    { text: '⚡ CloudTerm VM v2.5 (Google Cloud MicroVM Engine)', type: 'success' },
     { text: 'Hardware: 4.0 GB LPDDR4x RAM • 64.0 GB Cloud NVMe ROM', type: 'system' },
     { text: 'Zero Phone Storage: 100% Hosted on Google Cloud Platform', type: 'success' },
-    { text: 'Type "help", "neofetch", or "./welcome.sh" to begin.', type: 'normal' },
+    { text: 'Network: 10 Gbps Cloud Fiber • 0.2ms Datacenter Latency', type: 'system' },
+    { text: 'Type "speedtest", "neofetch", "docker ps", or "help".', type: 'normal' },
     { text: '==================================================', type: 'system' },
   ]);
 
@@ -120,40 +121,175 @@ export function App() {
 
     if (cmd === 'help') {
       newLines.push({
-        text: `Termux Cloud Commands:
-  neofetch             Display Cloud Phone specs & ASCII system info
+        text: `⚡ CloudTerm VM Commands (4GB RAM • 64GB ROM • 10Gbps):
+  speedtest            Run 10 Gbps Google Cloud fiber throughput test
+  neofetch             Display CloudTerm VM specs & system banner
+  docker ps            Inspect running cloud micro-containers
+  sysbench             Run multi-threaded CPU & 4GB RAM benchmark
+  reboot               Fast reboot Cloud Virtual Machine (0.4s)
+  snapshot             Save instant VM state to Google Cloud Storage
+  top / htop           Interactive CPU & process monitor
   pkg list             List available virtual Linux packages
   pkg install <name>   Install package (cmatrix, htop, nodejs, nmap, etc.)
   pkg remove <name>    Remove package from 64GB Cloud ROM
-  free -h              Inspect 4.0 GB virtual RAM allocation
+  free -h              Inspect 4.0 GB virtual LPDDR4x RAM
   df -h                Inspect 64.0 GB Google Cloud NVMe ROM
   curl <url>           Fetch live HTTP API / website data
-  ping <host>          Test datacenter network latency
+  ping <host>          Test datacenter network latency (0.2ms)
   ssh <host>           Open remote SSH terminal session
   python3 -c "..."     Execute Python 3 script
-  ls -la               List files in current cloud directory
-  cat <file>           Display content of cloud file
-  ./<script.sh>        Execute virtual bash script
+  ls -la / cat <file>  List & inspect files on cloud filesystem
+  ./<script.sh>        Execute virtual bash script (e.g. ./welcome.sh)
   cmatrix              Display green matrix terminal cascade
+  whoami / uptime      Check cloud permissions & VM uptime
   clear                Clear terminal output`,
         type: 'normal',
       });
+    } else if (cmd === 'speedtest' || cmd === 'fast') {
+      newLines.push({
+        text: `==========================================================
+🚀 GOOGLE CLOUD FAST FIBER SPEEDTEST (10 Gbps)
+==========================================================
+Datacenter Server: Google Cloud us-central1 (Council Bluffs, IA)
+Virtual Machine:   CloudTerm MicroVM (KVM Acceleration)
+Local Phone Impact: 0.0 MB Downloaded to Phone (Pure Cloud Pipe)
+
+Testing ping latency to edge...
+Ping Latency:      0.82 ms (Jitter: 0.03 ms)
+Testing 100GbE SDN multi-stream download throughput...
+Download Speed:    9,420.50 Mbps (1.17 GB/s) ⚡⚡
+Testing Google Cloud global fiber upload throughput...
+Upload Speed:      8,890.20 Mbps (1.11 GB/s) ⚡⚡
+Packet Loss:       0.0% (Zero dropped packets)
+Status:            EXCELLENT - Ultra-low latency datacenter link!
+==========================================================`,
+        type: 'success',
+      });
+    } else if (cmd === 'docker') {
+      const sub = args[0];
+      if (!sub || sub === 'ps') {
+        newLines.push({
+          text: `CONTAINER ID   IMAGE                 COMMAND                  STATUS         PORTS                   NAMES
+a9f4e21b08c1   alpine:latest         "/bin/sh -c 'tail -f…'"  Up 18 minutes                          cloud-worker-1
+b8d3f10a76e2   redis:7.2-alpine      "docker-entrypoint.s…"   Up 2 hours     0.0.0.0:6379->6379/tcp  cloud-cache
+c71e982d41b0   nginx:alpine          "/docker-entrypoint.…"   Up 5 hours     0.0.0.0:80->80/tcp      cloud-gateway
+(Docker daemon running inside 4GB RAM CloudTerm MicroVM sandbox)`,
+          type: 'normal',
+        });
+      } else if (sub === 'images') {
+        newLines.push({
+          text: `REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+alpine       latest    05455a08881e   5 days ago     7.38MB
+redis        alpine    9b81f129e13a   2 weeks ago    38.2MB
+nginx        alpine    e1467406a449   3 weeks ago    23.5MB`,
+          type: 'normal',
+        });
+      } else if (sub === 'run') {
+        const image = args[1] || 'alpine';
+        newLines.push({
+          text: `Unable to find image '${image}:latest' locally
+latest: Pulling from library/${image}
+Digest: sha256:4ab5d342...
+Status: Downloaded newer image for ${image}:latest in 0.06s (10Gbps link)
+[Docker] Container c58021da created and running on CloudTerm VM!`,
+          type: 'success',
+        });
+      } else {
+        newLines.push({ text: 'Usage: docker ps, docker images, docker run <image>', type: 'normal' });
+      }
+    } else if (cmd === 'top' || cmd === 'htop') {
+      newLines.push({
+        text: `top - 03:30:12 up 24 days, 16:52, 1 user, load average: 0.04, 0.02, 0.01
+Tasks: 62 total, 1 running, 61 sleeping, 0 stopped, 0 zombie
+%Cpu(s):  1.2 us,  0.4 sy,  0.0 ni, 98.4 id,  0.0 wa,  0.0 hi,  0.0 si
+MiB Mem :   4096.0 total,   2616.0 free,   ${ramUsedMb}.0 used,    512.0 buff/cache
+MiB Swap:   2048.0 total,   1984.0 free,     64.0 used.   2616.0 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  401 cloud     20   0  380.2m 142.1m  32.4m S   1.8   3.5   0:14.22 cloudterm-vm
+  112 root      20   0  182.4m  48.2m  18.1m S   0.6   1.2   0:08.41 dockerd
+  504 cloud     20   0   84.1m  22.8m  12.0m S   0.2   0.6   0:01.12 python3
+    1 root      20   0   22.4m   6.2m   4.1m S   0.0   0.2   0:02.89 systemd`,
+        type: 'normal',
+      });
+    } else if (cmd === 'sysbench' || cmd === 'bench') {
+      newLines.push({
+        text: `sysbench 1.0.20 (using bundled LuaJIT 2.1.0-beta3)
+Running 4GB RAM & 8-Core vCPU Sysbench on Google Cloud MicroVM...
+Threads: 8 | Test: CPU speed test (max-prime: 20000)
+Events evaluated: 142,890
+Time elapsed: 0.11s (Turbo KVM Accelerated)
+CPU events per second: 1,299,000 ops/sec
+Memory Read/Write Bandwidth: 28,450 MB/s (LPDDR4x Cloud Bus)
+Disk NVMe Random 4K IOPS: 124,000 IOPS (Google Cloud SSD)
+Result: [OPTIMAL PERFORMANCE - 99.9th percentile score: 9840 pts]`,
+        type: 'success',
+      });
+    } else if (cmd === 'reboot') {
+      newLines.push({
+        text: `[CloudTerm VM] Broadcasting hypervisor restart signal...
+[CloudTerm VM] Unmounting /storage/google-cloud-drive (64GB ROM)... OK
+[CloudTerm VM] Reclaiming 4096MB LPDDR4x RAM allocation... OK
+[CloudTerm VM] Booting CloudTerm VM Kernel 6.1.0-cloud-android-x86_64...
+[CloudTerm VM] Hypervisor: Google Cloud MicroVM KVM
+[CloudTerm VM] Datacenter Network 10 Gbps connected.
+[CloudTerm VM] Boot completed in 0.38s! Ready for fast execution.`,
+        type: 'success',
+      });
+    } else if (cmd === 'snapshot') {
+      newLines.push({
+        text: `[CloudTerm VM Snapshot] Creating instant VM state checkpoint...
+[CloudTerm VM Snapshot] Memory checkpoint (4096 MB) + 64GB ROM delta saved in 0.16s!
+Checkpoint ID: snap-20260924-gcp-9482
+Saved to: gs://cloudphone-vm-snapshots/snap-01.img (0.0 MB used on local phone).`,
+        type: 'success',
+      });
+    } else if (cmd === 'whoami') {
+      newLines.push({
+        text: `cloud (UID=1000 GID=1000, sudo privileges enabled in CloudTerm MicroVM)`,
+        type: 'normal',
+      });
+    } else if (cmd === 'uptime') {
+      newLines.push({
+        text: ` 03:30:12 up 24 days, 16:52, 1 user, load average: 0.04, 0.02, 0.01`,
+        type: 'normal',
+      });
+    } else if (cmd === 'uname' || (cmd === 'uname' && args[0] === '-a')) {
+      newLines.push({
+        text: `Linux google-cloud-microvm 6.1.0-cloud-android-x86_64 #1 SMP PREEMPT_DYNAMIC GNU/Linux`,
+        type: 'normal',
+      });
+    } else if (cmd === 'date') {
+      newLines.push({
+        text: new Date().toUTCString(),
+        type: 'normal',
+      });
+    } else if (cmd === 'echo') {
+      newLines.push({
+        text: args.join(' '),
+        type: 'normal',
+      });
+    } else if (cmd === 'turbo') {
+      newLines.push({
+        text: `⚡ Turbo Mode is ACTIVE: CloudTerm VM sub-millisecond execution enabled.`,
+        type: 'success',
+      });
     } else if (cmd === 'neofetch') {
       newLines.push({
-        text: `       _,met$$$$$gg.          cloud@google-cloud-microvm
-    ,g$$$$$$$$$$$$$$$P.       --------------------------
-  ,g$$P" ""     """Y$$.".     OS: CloudDroid Linux 6.1 (Debian GNU/Linux 12)
+        text: `       _,met$$$$$gg.          cloud@cloudterm-microvm
+    ,g$$$$$$$$$$$$$$$P.       -----------------------
+  ,g$$P" ""     """Y$$.".     OS: CloudTerm Linux 6.1 (Debian GNU/Linux 12)
  ,$$P'              \`$$$.     Host: Google Cloud Compute Engine (MicroVM)
 ',$$P       ,ggs.     \`$$b:   Kernel: 6.1.0-cloud-android-x86_64
-\`d$$'     ,$P"'   .    $$$    Uptime: 24 days, 16 hours
+\`d$$'     ,$P"'   .    $$$    Uptime: 24 days, 16 hours, 52 mins
  $$P      d$'     ,    $$$P   Packages: ${packages.filter(p => p.isInstalled).length + 42} (dpkg/pkg)
- $$:      $$.   -    ,d$$'    Shell: bash 5.2.21 (Termux Cloud Build)
+ $$:      $$.   -    ,d$$'    Shell: bash 5.2.21 (CloudTerm VM Build)
  $$;      Y$b._   _,d$P'      Display: Virtual 1080x2400 (60Hz)
  Y$$.    \`."Y$$$$P"'          CPU: 8-Core Virtual Xeon @ 3.40GHz
  \`$$b      "-.__              Memory: ${ramUsedMb}MiB / 4096MiB (4.0 GB RAM)
   \`Y$$                        Disk: 10.2GiB / 64.0GiB (Google Cloud NVMe)
    \`$$b.                      Local Phone Disk: 0.0 MB (Zero storage used)
-     \`Y$$b.                   IP: 34.120.89.214 (Datacenter Link: 10Gbps)`,
+     \`Y$$b.                   Datacenter Latency: 0.2ms (10Gbps Cloud Fiber)`,
         type: 'normal',
       });
     } else if (cmd === 'free' || (cmd === 'free' && args[0] === '-h')) {
