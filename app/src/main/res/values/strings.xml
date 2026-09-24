@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CloudPhone OS</string>
+    <string name="terminal_title">Cloud Termux</string>
+    <string name="playstore_title">Play Store</string>
+    <string name="youtube_title">YouTube Cloud</string>
+    <string name="storage_title">64GB Cloud Storage</string>
+    <string name="settings_title">Cloud Specs</string>
+</resources>
